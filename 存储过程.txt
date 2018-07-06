@@ -1,0 +1,34 @@
+DELIMITER // 
+CREATE PROCEDURE proc1()  
+BEGIN
+ 
+    DECLARE k INT;
+    SET k = 1;
+    truncate table grade;
+    set autocommit=0;
+    set unique_checks=0;
+    WHILE k < 9 DO
+        INSERT INTO
+          `grade`
+        (
+	  `ID`,
+          `stuID`,
+          `course`,
+	  `score`
+        )
+        VALUES (
+	k,
+        concat('20160509',k),
+	'python',
+        '5'
+      );
+        SET k = k + 1;
+    END WHILE;
+    set autocommit=1;
+    set unique_checks=1;
+END
+//
+DELIMITER ; 
+
+
+call proc1();
